@@ -1,16 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
+// Dependencies
+import { AngularW3wModule } from './angular-w3w/angular-w3w.module';
+import { DemoModule } from './demo/demo.module';
+
+// Components
 import { AppComponent } from './app.component';
+
+// services
+import { GeolocationService } from './demo/services/geolocation.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot([]),
+    AngularW3wModule.forRoot(),
+    DemoModule,
   ],
-  providers: [],
+  providers: [
+    GeolocationService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

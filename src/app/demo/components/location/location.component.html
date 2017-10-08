@@ -1,0 +1,41 @@
+<div class="mdl-card mdl-shadow--4dp">
+  <div class="mdl-card__title">
+    <h4>Reverse geocoding</h4>
+  </div>
+  <div class="mdl-card__supporting-text mdl-card--border">
+
+    <div class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text" id="latitude" required
+             [(ngModel)]="latitude">
+      <label class="mdl-textfield__label" for="latitude">Latitude *</label>
+      <span class="mdl-textfield__error">Required value</span>
+    </div>
+
+    <div class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield">
+      <input class="mdl-textfield__input" type="text" id="longitude" required
+             [(ngModel)]="longitude">
+      <label class="mdl-textfield__label" for="longitude">Longitude *</label>
+      <span class="mdl-textfield__error">Required value</span>
+    </div>
+  </div>
+  <div class="mdl-card__supporting-text" *ngIf="reverse$ | async as reverse">
+    <span>{{ reverse.geometry.lat }}, {{ reverse.geometry.lng }}</span>
+    <span>-</span>
+    <a target="_blank" [href]="'https://map.what3words.com/' + reverse.words">{{ reverse.words }}</a>
+  </div>
+  <div class="mdl-card__supporting-text" *ngIf="error$ | async as error">
+    <span class="error">Error: {{ error.message }}</span>
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+            (click)="runReverse()">
+      Reverse coordinates
+    </button>
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored"
+            (click)="updateCurrentPosition()">
+      <i class="material-icons">gps_fixed</i>
+    </button>
+  </div>
+  <div [style.display]="(loading$ | async) ? '' : 'none'"
+       class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+</div>
